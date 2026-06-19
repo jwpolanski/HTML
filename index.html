@@ -139,7 +139,32 @@ let SESSION_ID = "web-" + Math.random().toString(36).slice(2, 10);
 
 /* ---- Lew (biały lineart, rysowany proceduralnie) ---- */
 function lion(px){
-  return `<img src="https://imgs.search.brave.com/QpGfieCqt2epYvyM3uQJZIibt-kEC2kQOMSElpm20pw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9kMWhi/cHIwOXB3ejBzay5j/bG91ZGZyb250Lm5l/dC9sb2dvX3VybC9j/aGFuZG9uLXdhbGxl/ci1wYXJ0bmVycy1i/MTgxYjhmYQ" width="${px}" height="${px}" style="border-radius:50%;object-fit:cover" />`;
+  const cx=32, cy=32, rIn=12.5, rOut=19.5, N=11;
+  let d="";
+  for(let i=0;i<N;i++){
+    const a0=(i/N)*2*Math.PI - Math.PI/2;
+    const a1=((i+1)/N)*2*Math.PI - Math.PI/2;
+    const am=(a0+a1)/2;
+    const x0=(cx+rIn*Math.cos(a0)).toFixed(1), y0=(cy+rIn*Math.sin(a0)).toFixed(1);
+    const xm=(cx+rOut*Math.cos(am)).toFixed(1), ym=(cy+rOut*Math.sin(am)).toFixed(1);
+    const x1=(cx+rIn*Math.cos(a1)).toFixed(1), y1=(cy+rIn*Math.sin(a1)).toFixed(1);
+    if(i===0) d+=M${x0} ${y0} ;
+    d+=Q${xm} ${ym} ${x1} ${y1} ;
+  }
+  d+="Z";
+  return 
+  <svg width="${px}" height="${px}" viewBox="0 0 64 64" fill="none" stroke="#fff"
+       stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="${d}"/>
+    <path d="M24 24c-3-2-3-6 0-7 2 1 3 4 2 7"/>
+    <path d="M40 24c3-2 3-6 0-7-2 1-3 4-2 7"/>
+    <path d="M25.5 31.5c1.6-1.6 4-1.6 5.6 0"/>
+    <path d="M32.9 31.5c1.6-1.6 4-1.6 5.6 0"/>
+    <path d="M29.5 36h5l-2.5 3z" fill="#fff" stroke="none"/>
+    <path d="M32 39v2.6"/>
+    <path d="M32 41.6c-1.6 1.7-3.6 1.7-5 .4"/>
+    <path d="M32 41.6c1.6 1.7 3.6 1.7 5 .4"/>
+  </svg>;
 }
 
 const SUGGESTIONS = [
